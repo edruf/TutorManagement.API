@@ -18,3 +18,11 @@ public class ResponseStudentDto
     public string Target { get; set; }
     public decimal CurrentBalance { get; set; }
 }
+
+public class StudentProgressDto
+{
+    public int Id { get; set; }
+    public string FullName { get; set; } = string.Empty;
+    public decimal CurrentBalance { get; set; }
+    public List<ResponseLessonDto> PastLessons { get; set; } = new();
+}

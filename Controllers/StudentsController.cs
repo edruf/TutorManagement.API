@@ -127,4 +127,33 @@ public class StudentsController : ControllerBase
 
         return Ok(UpdatedResponseDto);
     }
+
+    [HttpGet("{id}/progress")]
+    public async Task<ActionResult<StudentProgressDto>> GetStudentProgress(int id) 
+    {
+        var student = await _context.Students
+            .Include(s => s.Lessons)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.ID == id);
+
+        if (student == null)
+        {
+            return NotFound("Ученик с таким ID не найден");
+        }
+
+        var progressDto = new StudentProgressDto
+        {
+            Id = student.ID,
+            FullName = $"{student.FirstName} {student.LastName}",
+            CurrentBalance = student.CurrentBalance,
+            PastLessons = student.Lessons.Select(l => new ResponseLessonDto 
+            {
+                ID = l.ID,
+                Date = l.Date,
+                Topic = l.Topic,
+            }).ToList()
+        };
+
+        return Ok(progressDto);
+    }
 }
