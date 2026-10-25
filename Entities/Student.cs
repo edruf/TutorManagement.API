@@ -1,12 +1,15 @@
-﻿namespace TutorManagment.API.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace TutorManagment.API.Entities;
+
+[Table("Students")]
 public class Student : User
 {
-    public int ID { get; set; }
-    public int UserID { get; set; }
-    public User User { get; set; }
-    public string Login { get; set; }
-    public int PasswordHash { get; set; }
+    public Student()
+    {
+        Role = "Student";
+    }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Target { get; set; }

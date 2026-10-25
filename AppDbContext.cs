@@ -18,9 +18,9 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<User>()
-            .HasOne(l => l.StudentProfile) 
-            .WithOne(s => s.User)         
-            .HasForeignKey<Student>(s => s.UserID);
+            .HasOne(l => l.StudentProfile);
+            //.WithOne(s => s.User)         
+            //.HasForeignKey<Student>(s => s.UserID);
 
         modelBuilder.Entity<Lesson>()
             .HasOne(l => l.Progress)

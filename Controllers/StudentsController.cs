@@ -32,12 +32,12 @@ public class StudentsController : ControllerBase
             CurrentBalance = 0
         };
 
-        _context.Add(student);
+        _context.Students.Add(student);
         await _context.SaveChangesAsync();
 
         var responseDto = new ResponseStudentDto
         {
-            ID = student.ID,
+            ID = student.Id,
             FullName = $"{student.FirstName} {student.LastName}",
             Target = student.Target,
             CurrentBalance = student.CurrentBalance
@@ -57,7 +57,7 @@ public class StudentsController : ControllerBase
 
         var responseDto = new ResponseStudentDto
         {
-            ID = studentById.ID,
+            ID = studentById.Id,
             FullName = $"{studentById.FirstName} {studentById.LastName}",
             Target = studentById.Target,
             CurrentBalance = studentById.CurrentBalance
@@ -73,7 +73,7 @@ public class StudentsController : ControllerBase
             .AsNoTracking()
             .Select(s => new ResponseStudentDto
             {
-                ID = s.ID,
+                ID = s.Id,
                 FullName = $"{s.FirstName} {s.LastName}",
                 Target = s.Target,
                 CurrentBalance = s.CurrentBalance
@@ -119,7 +119,7 @@ public class StudentsController : ControllerBase
         await _context.SaveChangesAsync();
         var UpdatedResponseDto = new ResponseStudentDto
         {
-            ID = studentToUpdate.ID,
+            ID = studentToUpdate.Id,
             FullName = $"{studentToUpdate.FirstName} {studentToUpdate.LastName}",
             Target = studentToUpdate.Target,
             CurrentBalance = studentToUpdate.CurrentBalance
@@ -134,7 +134,7 @@ public class StudentsController : ControllerBase
         var student = await _context.Students
             .Include(s => s.Lessons)
             .AsNoTracking()
-            .FirstOrDefaultAsync(s => s.ID == id);
+            .FirstOrDefaultAsync(s => s.Id == id);
 
         if (student == null)
         {
@@ -143,7 +143,7 @@ public class StudentsController : ControllerBase
 
         var progressDto = new StudentProgressDto
         {
-            Id = student.ID,
+            Id = student.Id,
             FullName = $"{student.FirstName} {student.LastName}",
             CurrentBalance = student.CurrentBalance,
             PastLessons = student.Lessons.Select(l => new ResponseLessonDto 

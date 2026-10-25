@@ -32,7 +32,8 @@ public class LessonsController: ControllerBase
         {
             StudentID = dto.StudentID,
             Date = dto.Date,
-            LessonTime = dto.LessonTime
+            LessonTime = dto.LessonTime,
+            Topic = dto.Topic
         };
 
         student.CurrentBalance -= dto.PricePerHour * dto.LessonTime;
